@@ -194,3 +194,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   particle: {fileID: 1315193202193998, guid: 2275a534591bf2342a4644a180b09c19, type: 2}
+  plane: {fileID: 1553472726336688, guid: cafa8c2a8fbdc6f499c1b5fe03f108d4, type: 2}
+  pos:
+  - {fileID: 4202679285306144, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 4299390067488768, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 4918608724808210, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 4362731550295830, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 4425465751667364, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}

@@ -7,6 +7,7 @@ using System.IO;
 public class NoteDatas
 {
     public int Tick;
+    public int ContTick;
     public int Param1;
 
 }
@@ -75,7 +76,7 @@ public class MusicMap : MonoBehaviour
         clock = 0;
         dist = Vector3.Distance(start.position, end.position);
         audios = GetComponent<AudioSource>();
-        path = Application.dataPath + "/Resources/poli.json";
+        path = Application.dataPath + "/Resources/superwings.json";
         StreamReader sr = new StreamReader(path);
         string json = sr.ReadToEnd();
         bands band = new bands();

@@ -334,45 +334,168 @@ public class Piano : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.U))
                 {
-                    mesh[6].material = materials[1];
-                    mesh[16].material = materials[1];
+                    switch (keyState[6])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[6] = KeyState.INPRESS;
+                            mesh[6].material = materials[1];
+                            mesh[16].material = materials[1];
+                            determination(6);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[6] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[6] = KeyState.INPRESS;
+                            mesh[6].material = materials[1];
+                            mesh[16].material = materials[1];
+                            determination(6);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.U))
+                else
                 {
-                    mesh[6].material = materials[0];
-                    mesh[16].material = materials[2];
+                    switch (keyState[6])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[6] = KeyState.OUTPRESS;
+                            mesh[6].material = materials[0];
+                            mesh[16].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[6] = KeyState.OUTPRESS;
+                            mesh[6].material = materials[0];
+                            mesh[16].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[6] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
                 if (Input.GetKey(KeyCode.I))
                 {
-                    mesh[7].material = materials[1];
-                    mesh[17].material = materials[1];
+                    switch (keyState[7])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[7] = KeyState.INPRESS;
+                            mesh[7].material = materials[1];
+                            mesh[17].material = materials[1];
+                            determination(7);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[7] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[7] = KeyState.INPRESS;
+                            mesh[7].material = materials[1];
+                            mesh[17].material = materials[1];
+                            determination(7);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.I))
+                else
                 {
-                    mesh[7].material = materials[0];
-                    mesh[17].material = materials[2];
+                    switch (keyState[7])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[7] = KeyState.OUTPRESS;
+                            mesh[7].material = materials[0];
+                            mesh[17].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[7] = KeyState.OUTPRESS;
+                            mesh[7].material = materials[0];
+                            mesh[17].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[7] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
                 if (Input.GetKey(KeyCode.O))
                 {
-                    mesh[8].material = materials[1];
-                    mesh[18].material = materials[1];
+                    switch (keyState[8])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[8] = KeyState.INPRESS;
+                            mesh[8].material = materials[1];
+                            mesh[18].material = materials[1];
+                            determination(8);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[8] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[8] = KeyState.INPRESS;
+                            mesh[8].material = materials[1];
+                            mesh[18].material = materials[1];
+                            determination(8);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.O))
+                else
                 {
-                    mesh[8].material = materials[0];
-                    mesh[18].material = materials[2];
+                    switch (keyState[8])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[8] = KeyState.OUTPRESS;
+                            mesh[8].material = materials[0];
+                            mesh[18].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[8] = KeyState.OUTPRESS;
+                            mesh[8].material = materials[0];
+                            mesh[18].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[8] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
                 if (Input.GetKey(KeyCode.P))
                 {
-                    mesh[9].material = materials[1];
-                    mesh[19].material = materials[1];
-                }
-                if (Input.GetKeyUp(KeyCode.P))
-                {
-                    mesh[9].material = materials[0];
-                    mesh[19].material = materials[2];
-                }
+                    switch (keyState[9])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[9] = KeyState.INPRESS;
+                            mesh[9].material = materials[1];
+                            mesh[19].material = materials[1];
+                            determination(9);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[9] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[9] = KeyState.INPRESS;
+                            mesh[9].material = materials[1];
+                            mesh[19].material = materials[1];
+                            determination(9);
+                            break;
+                    }
 
+                }
+                else
+                {
+                    switch (keyState[9])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[9] = KeyState.OUTPRESS;
+                            mesh[9].material = materials[0];
+                            mesh[19].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[9] = KeyState.OUTPRESS;
+                            mesh[9].material = materials[0];
+                            mesh[19].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[9] = KeyState.NOPRESS;
+                            break;
+                    }
+                }
                 break;
         }
     }

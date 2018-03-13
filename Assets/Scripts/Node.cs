@@ -30,7 +30,7 @@ public class Node : MonoBehaviour {
     {
         Destroy(this.gameObject);
     }
-    public virtual void determination()
+    public virtual void determination(KeyState keyState,int track)
     {
 
     }
