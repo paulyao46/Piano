@@ -8,25 +8,29 @@ public enum Playtype
 }
 public enum KeyState
 {
-    press,
-    idle
+    NOPRESS,
+    INPRESS,
+    PRESS,
+    OUTPRESS
 }
 public class Piano : MonoBehaviour
 {
-    private MeshRenderer[] mesh;
     public text showLevel;
     public Score score;
     public AudioSource audios;
-    private GyroObj protocol;
-    private List<float>[] timeOfTrack;
+    public MusicMap mMap;
     public Material[] materials;
-    private KEY[] key;
     public GameObject[] keyObjs;
     public GameObject[] tracks;
-    private TextMesh[] text;
-    private List<int> trackIndex;
     public List<Node>[] Nodes;
     public Playtype type;
+    private MeshRenderer[] mesh;
+    private GyroObj protocol;
+    private List<float>[] timeOfTrack;
+    private KEY[] key;
+    private TextMesh[] text;
+    private List<int> trackIndex;
+    private KeyState[] keyState; 
     // Use this for initialization
     void Start()
     {
@@ -36,6 +40,11 @@ public class Piano : MonoBehaviour
         text = new TextMesh[10];
         timeOfTrack = new List<float>[5];
         Nodes = new List<Node>[5];
+        keyState = new KeyState[10];
+        for(int i =0;i<10;i++)
+        {
+            keyState[i] = KeyState.NOPRESS;
+        }
         trackIndex = new List<int>();
         for (int i = 0; i < keyObjs.Length; i++)
         {
@@ -77,71 +86,253 @@ public class Piano : MonoBehaviour
                 }
                 break;
             case Playtype.KEYBOARD:
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKey(KeyCode.Q))
                 {
-                    mesh[0].material = materials[1];
-                    mesh[10].material = materials[1];
-                    determination(0);
+                    switch(keyState[0])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[0] = KeyState.INPRESS;
+                            mesh[0].material = materials[1];
+                            mesh[10].material = materials[1];
+                            determination(0);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[0] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[0] = KeyState.INPRESS;
+                            mesh[0].material = materials[1];
+                            mesh[10].material = materials[1];
+                            determination(0);
+                            break;
+                    }
+                    
                 }
-                if (Input.GetKeyUp(KeyCode.Q))
+                else
                 {
-                    mesh[0].material = materials[0];
-                    mesh[10].material = materials[2];
+                    switch (keyState[0])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[0] = KeyState.OUTPRESS;
+                            mesh[0].material = materials[0];
+                            mesh[10].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[0] = KeyState.OUTPRESS;
+                            mesh[0].material = materials[0];
+                            mesh[10].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[0] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKey(KeyCode.W))
                 {
-                    mesh[1].material = materials[1];
-                    mesh[11].material = materials[1];
-                    determination(1);
+                    switch (keyState[1])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[1] = KeyState.INPRESS;
+                            mesh[1].material = materials[1];
+                            mesh[11].material = materials[1];
+                            determination(1);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[1] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[1] = KeyState.INPRESS;
+                            mesh[1].material = materials[1];
+                            mesh[11].material = materials[1];
+                            determination(1);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.W))
+                else
                 {
-                    mesh[1].material = materials[0];
-                    mesh[11].material = materials[2];
+                    switch (keyState[1])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[1] = KeyState.OUTPRESS;
+                            mesh[1].material = materials[0];
+                            mesh[11].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[1] = KeyState.OUTPRESS;
+                            mesh[1].material = materials[0];
+                            mesh[11].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[1] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKey(KeyCode.E))
                 {
-                    mesh[2].material = materials[1];
-                    mesh[12].material = materials[1];
-                    determination(2);
+                    switch (keyState[2])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[2] = KeyState.INPRESS;
+                            mesh[2].material = materials[1];
+                            mesh[12].material = materials[1];
+                            determination(2);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[2] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[2] = KeyState.INPRESS;
+                            mesh[2].material = materials[1];
+                            mesh[12].material = materials[1];
+                            determination(2);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.E))
+                else
                 {
-                    mesh[2].material = materials[0];
-                    mesh[12].material = materials[2];
+                    switch (keyState[2])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[2] = KeyState.OUTPRESS;
+                            mesh[2].material = materials[0];
+                            mesh[12].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[2] = KeyState.OUTPRESS;
+                            mesh[2].material = materials[0];
+                            mesh[12].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[2] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKey(KeyCode.R))
                 {
-                    mesh[3].material = materials[1];
-                    mesh[13].material = materials[1];
-                    determination(3);
+                    switch (keyState[3])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[3] = KeyState.INPRESS;
+                            mesh[3].material = materials[1];
+                            mesh[13].material = materials[1];
+                            determination(3);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[3] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[3] = KeyState.INPRESS;
+                            mesh[3].material = materials[1];
+                            mesh[13].material = materials[1];
+                            determination(3);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.R))
+                else
                 {
-                    mesh[3].material = materials[0];
-                    mesh[13].material = materials[2];
+                    switch (keyState[3])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[3] = KeyState.OUTPRESS;
+                            mesh[3].material = materials[0];
+                            mesh[13].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[3] = KeyState.OUTPRESS;
+                            mesh[3].material = materials[0];
+                            mesh[13].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[3] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.T))
+                if (Input.GetKey(KeyCode.T))
                 {
-                    mesh[4].material = materials[1];
-                    mesh[14].material = materials[1];
+                    switch (keyState[4])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[4] = KeyState.INPRESS;
+                            mesh[4].material = materials[1];
+                            mesh[14].material = materials[1];
+                            determination(4);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[4] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[4] = KeyState.INPRESS;
+                            mesh[4].material = materials[1];
+                            mesh[14].material = materials[1];
+                            determination(4);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.T))
+                else
                 {
-                    mesh[4].material = materials[0];
-                    mesh[14].material = materials[2];
+                    switch (keyState[4])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[4] = KeyState.OUTPRESS;
+                            mesh[4].material = materials[0];
+                            mesh[14].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[4] = KeyState.OUTPRESS;
+                            mesh[4].material = materials[0];
+                            mesh[14].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[4] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Y))
+                if (Input.GetKey(KeyCode.Y))
                 {
-                    mesh[5].material = materials[1];
-                    mesh[15].material = materials[1];
+                    switch (keyState[5])
+                    {
+                        case KeyState.NOPRESS:
+                            keyState[5] = KeyState.INPRESS;
+                            mesh[5].material = materials[1];
+                            mesh[15].material = materials[1];
+                            determination(5);
+                            break;
+                        case KeyState.INPRESS:
+                            keyState[5] = KeyState.PRESS;
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[5] = KeyState.INPRESS;
+                            mesh[5].material = materials[1];
+                            mesh[15].material = materials[1];
+                            determination(5);
+                            break;
+                    }
+
                 }
-                if (Input.GetKeyUp(KeyCode.Y))
+                else
                 {
-                    mesh[5].material = materials[0];
-                    mesh[15].material = materials[2];
+                    switch (keyState[5])
+                    {
+                        case KeyState.INPRESS:
+                            keyState[5] = KeyState.OUTPRESS;
+                            mesh[5].material = materials[0];
+                            mesh[15].material = materials[2];
+                            break;
+                        case KeyState.PRESS:
+                            keyState[5] = KeyState.OUTPRESS;
+                            mesh[5].material = materials[0];
+                            mesh[15].material = materials[2];
+                            break;
+                        case KeyState.OUTPRESS:
+                            keyState[5] = KeyState.NOPRESS;
+                            break;
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.U))
+                if (Input.GetKey(KeyCode.U))
                 {
                     mesh[6].material = materials[1];
                     mesh[16].material = materials[1];
@@ -151,7 +342,7 @@ public class Piano : MonoBehaviour
                     mesh[6].material = materials[0];
                     mesh[16].material = materials[2];
                 }
-                if (Input.GetKeyDown(KeyCode.I))
+                if (Input.GetKey(KeyCode.I))
                 {
                     mesh[7].material = materials[1];
                     mesh[17].material = materials[1];
@@ -161,7 +352,7 @@ public class Piano : MonoBehaviour
                     mesh[7].material = materials[0];
                     mesh[17].material = materials[2];
                 }
-                if (Input.GetKeyDown(KeyCode.O))
+                if (Input.GetKey(KeyCode.O))
                 {
                     mesh[8].material = materials[1];
                     mesh[18].material = materials[1];
@@ -171,7 +362,7 @@ public class Piano : MonoBehaviour
                     mesh[8].material = materials[0];
                     mesh[18].material = materials[2];
                 }
-                if (Input.GetKeyDown(KeyCode.P))
+                if (Input.GetKey(KeyCode.P))
                 {
                     mesh[9].material = materials[1];
                     mesh[19].material = materials[1];
@@ -195,7 +386,6 @@ public class Piano : MonoBehaviour
         if (track < 5&& timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count )
         {
             var time = timeOfTrack[track][trackIndex[track]];
-            time += 0.17f;
             var audioTime = audios.time;
 
             if (time >= audioTime - 0.05f && time <= audioTime + 0.05f)
@@ -229,9 +419,9 @@ public class Piano : MonoBehaviour
         {
             if (timeOfTrack[i].Count != 0 && trackIndex[i] < timeOfTrack[i].Count)
             {
-                if (timeOfTrack[i][trackIndex[i]]+0.17f < audioTime - 0.2f)
+                if (timeOfTrack[i][trackIndex[i]] < audioTime - 0.2f)
                 {
-                    Debug.Log("Miss");
+                    Debug.Log("Miss"+" "+ timeOfTrack[i][trackIndex[i]]+" "+ audioTime);
                     showLevel.setText("Miss",Color.red);
                     score.resetCombo();
 

@@ -42,14 +42,18 @@ public class MusicMap : MonoBehaviour
     public Transform start;
     public Transform end;
     public Piano piano;
+    public float delayTime;
+    private bool startLoad;
     private string path;
     private AudioSource audios;
     private float dist;
     private float[] timer;
     private bool[] isCreate;
+    private bool[] fristIn;
     private bool isPlay;
     private float totalTime;
-    private float clock;
+    public float clock;
+    private bool clockCanRun;
     // Use this for initialization
     void Start()
     {
@@ -57,18 +61,21 @@ public class MusicMap : MonoBehaviour
         createInfo = new Queue<int>[5];
         timer = new float[5];
         isCreate = new bool[5];
+        fristIn = new bool[5];
         for (int i = 0; i < 5; i++)
         {
             isCreate[i] = false;
+            fristIn[i] = true;
             createTime[i] = new Queue<float>();
             createInfo[i] = new Queue<int>();
         }
         isPlay = false;
+        startLoad = false;
+        clockCanRun = false;
         clock = 0;
         dist = Vector3.Distance(start.position, end.position);
         audios = GetComponent<AudioSource>();
-
-        path = Application.dataPath + "/Resources/superwings.json";
+        path = Application.dataPath + "/Resources/poli.json";
         StreamReader sr = new StreamReader(path);
         string json = sr.ReadToEnd();
         bands band = new bands();
@@ -85,13 +92,17 @@ public class MusicMap : MonoBehaviour
             }
 
         }
+        StartCoroutine(setLoadTime());
     }
 
     // Update is called once per frame
     void Update()
     {
-        loadJasonMusicMap();
-        PlayMusic();
+        if(startLoad)
+        {
+            loadJasonMusicMap();
+            PlayMusic();
+        }
     }
     void loadJasonMusicMap()
     {
@@ -112,13 +123,13 @@ public class MusicMap : MonoBehaviour
             }
             else
             {
-                if (timer[i]+0.17f - totalTime < audios.time && audios.isPlaying)
+                if (timer[i]+ delayTime - totalTime < audios.time && audios.isPlaying)
                 {
                     
                     if(i!=4)
                     {
                         var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[i].transform.position, createPos[i].transform.rotation);
-                        piano.setTimeOfTrack(i, timer[i], obj.GetComponent<Node>());
+                        piano.setTimeOfTrack(i, timer[i]+ delayTime, obj.GetComponent<Node>());
                     }
                     else
                     {
@@ -126,23 +137,29 @@ public class MusicMap : MonoBehaviour
                     }
                     isCreate[i] = false;
                 }
-                else if(timer[i]+0.17f - totalTime < audios.time)
+                else if(timer[i]+ delayTime - totalTime < audios.time)
                 {
-                    var tempTime = timer[i] + 0.17f - totalTime;
-                    if(tempTime < clock)
+                    var tempTime = timer[i] + delayTime - totalTime;
+                    if(tempTime < clock&& fristIn[i])
                     {
                         clock = tempTime;
                     }
-                     if (i!=4)
+                    
+                    if (timer[i] + delayTime - totalTime <= clock+0.00001 && !fristIn[i])
                     {
-                        var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[i].transform.position, createPos[i].transform.rotation);
-                        piano.setTimeOfTrack(i, timer[i], obj.GetComponent<Node>());
+                        if (i != 4)
+                        {
+                            var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[i].transform.position, createPos[i].transform.rotation);
+                            
+                            piano.setTimeOfTrack(i, timer[i]+ delayTime, obj.GetComponent<Node>());
+                        }
+                        else
+                        {
+                            var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[10].transform.position, createPos[10].transform.rotation);
+                        }
+                        isCreate[i] = false;
                     }
-                    else
-                    {
-                        var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[10].transform.position, createPos[10].transform.rotation);
-                    }
-                    isCreate[i] = false;
+                    fristIn[i] = false;
                 }
 
             }
@@ -152,12 +169,18 @@ public class MusicMap : MonoBehaviour
     {
         if(clock>0&& !audios.isPlaying&& !isPlay)
         {
+            Debug.Log("time: " + clock);
             audios.Play();
             isPlay = true;
         }
-        else
+        else 
         {
             clock += Time.deltaTime; 
         }
+    }
+    IEnumerator setLoadTime()
+    {
+        yield return new WaitForSeconds(1);
+        startLoad = true;
     }
 }

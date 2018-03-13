@@ -10,6 +10,7 @@ public enum State
 public class Node : MonoBehaviour {
     public float speed;
     public GameObject particle;
+    private float time;
     State state;
     // Use this for initialization
     void Start () {
@@ -28,5 +29,9 @@ public class Node : MonoBehaviour {
     public void missDestory()
     {
         Destroy(this.gameObject);
+    }
+    public virtual void determination()
+    {
+
     }
 }
