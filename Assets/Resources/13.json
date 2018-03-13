@@ -1,0 +1,182 @@
+{
+  "ChangeBPMTimes": 1,
+  "ChangeRhythmTimes": 1,
+  "TotalNote": 121,
+  "BandWavNum": 2,
+  "BandWavDir": "D:\\tool\\DanceEditor\\sound",
+  "MotionStaTick": 0,
+  "ChangeBPM": [
+    {
+      "Tick": 0,
+      "Tempo": 12000,
+      "TimePerTick": 0.041666666666666664
+    }
+  ],
+  "ChangeRhythm": [
+    {
+      "Section": 1,
+      "Beat": 4,
+      "Tick": 0
+    }
+  ],
+  "Track": [
+    {
+      "TrackID": 0,
+      "NoteData": [
+        { "Tick": 0, "EventID": 1, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 3 }
+      ]
+    },
+    {
+      "TrackID": 1,
+      "NoteData": [
+        { "Tick": 84, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 96, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 108, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 120, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 150, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 162, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 174, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 291, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 312, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 318, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 330, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 336, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 343, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 348, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 353, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 358, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 365, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 444, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 470, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 537, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 548, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 599, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 612, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 634, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 684, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 690, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 705, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 711, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 2,
+      "NoteData": [
+        { "Tick": 77, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 90, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 102, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 113, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 126, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 156, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 168, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 180, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 288, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 315, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 333, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 353, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 358, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 365, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 440, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 491, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 503, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 534, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 579, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 587, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 603, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 687, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 708, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 3,
+      "NoteData": [
+        { "Tick": 77, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 90, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 102, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 113, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 126, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 156, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 168, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 180, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 237, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 257, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 274, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 285, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 387, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 408, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 427, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 437, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 531, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 583, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 606, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 4,
+      "NoteData": [
+        { "Tick": 84, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 96, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 108, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 120, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 150, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 162, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 174, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 234, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 240, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 254, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 260, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 271, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 277, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 282, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 384, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 390, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 405, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 411, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 424, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 430, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 434, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 458, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 480, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 491, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 503, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 527, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 540, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 561, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 609, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 620, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 5,
+      "NoteData": [
+        { "Tick": 132, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 1 },
+        { "Tick": 138, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 186, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 198, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 210, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 228, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 247, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 264, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 301, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 324, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 341, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 372, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 397, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 417, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 448, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 515, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 593, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 648, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 660, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 672, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 },
+        { "Tick": 696, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 2 }
+      ]
+    }
+  ],
+  "BandWav": [
+    {
+      "WavID": 0, "Path": "beats" },
+    { "WavID": 1, "Path": "Senbonzakura_Game_Version_"
+    }
+  ]
+}

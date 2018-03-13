@@ -1,0 +1,65 @@
+{
+  "ChangeBPMTimes": 1,
+  "ChangeRhythmTimes": 1,
+  "TotalNote": 6,
+  "BandWavNum": 3,
+  "BandWavDir": "D:\\tool\\DanceEditor\\sound",
+  "MotionStaTick": 0,
+  "ChangeBPM": [
+    {
+      "Tick": 0,
+      "Tempo": 16400,
+      "TimePerTick": 0.0304878048780488
+    }
+  ],
+  "ChangeRhythm": [
+    {
+      "Section": 1,
+      "Beat": 4,
+      "Tick": 0
+    }
+  ],
+  "Track": [
+    {
+      "TrackID": 0,
+      "NoteData": [
+        { "Tick": 0, "EventID": 1, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 3 }
+      ]
+    },
+    {
+      "TrackID": 1,
+      "NoteData": []
+    },
+    {
+      "TrackID": 2,
+      "NoteData": [
+        { "Tick": 33, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 81, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 125, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 3,
+      "NoteData": [
+        { "Tick": 33, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 81, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 },
+        { "Tick": 125, "EventID": 0, "SoundVol": 100, "ContTick": 0, "ContVal": 0, "Param1": 0 }
+      ]
+    },
+    {
+      "TrackID": 4,
+      "NoteData": []
+    },
+    {
+      "TrackID": 5,
+      "NoteData": []
+    }
+  ],
+  "BandWav": [
+    {
+      "WavID": 0, "Path": "beats" },
+    { "WavID": 1, "Path": "bgm" },
+    { "WavID": 2, "Path": "Senbonzakura_Game_Version_"
+    }
+  ]
+}
