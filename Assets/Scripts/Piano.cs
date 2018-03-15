@@ -38,8 +38,8 @@ public class Piano : MonoBehaviour
         protocol = GameObject.Find("rs232obj").GetComponent<GyroObj>();
         mesh = new MeshRenderer[20];
         text = new TextMesh[10];
-        timeOfTrack = new List<float>[5];
-        Nodes = new List<Node>[5];
+        timeOfTrack = new List<float>[10];
+        Nodes = new List<Node>[10];
         keyState = new KeyState[10];
         for(int i =0;i<10;i++)
         {
@@ -506,50 +506,56 @@ public class Piano : MonoBehaviour
     }
     private void determination(int track)
     {
-        if (track < 5&& timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count )
+        if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count )
         {
-            var time = timeOfTrack[track][trackIndex[track]];
             var audioTime = audios.time;
+            var level = Nodes[track][trackIndex[track]].determination(keyState[track], track, audioTime);
+            var inAttack = false;
+            switch (level)
+            {
+                case Level.PREFECT:
+                    showLevel.setText("Prefect", Color.cyan);
+                    inAttack = true;
+                    break;
+                case Level.GOOD:
+                    showLevel.setText("Good", Color.green);
+                    inAttack = true;
+                    break;
+                case Level.BAD:
+                    showLevel.setText("Bad", Color.yellow);
+                    inAttack = true;
+                    break;
+                case Level.CONTINUE:
+                    break;
+                case Level.UNABLE:
+                    break;
+            }
+            if(inAttack == true)
+            {
+                score.setCombo();
+                Nodes[track][trackIndex[track]].needDestory();
+                trackIndex[track] += 1;
+            }
+            
 
-            if (time >= audioTime - 0.05f && time <= audioTime + 0.05f)
-            {
-                showLevel.setText("Prefect",Color.cyan);
-                score.setCombo();
-                Nodes[track][trackIndex[track]].needDestory();
-                trackIndex[track] += 1;
-            }
-            else if (time >= audioTime - 0.1f && time <= audioTime + 0.1f)
-            {
-                showLevel.setText("Good",Color.green);
-                score.setCombo();
-                Nodes[track][trackIndex[track]].needDestory();
-                trackIndex[track] += 1;
-            }
-            else if (time >= audioTime - 0.2f && time <= audioTime + 0.2f)
-            {
-                showLevel.setText("Bad",Color.yellow);
-                score.setCombo();
-                Nodes[track][trackIndex[track]].needDestory();
-                trackIndex[track] += 1;
-            }
         }
 
     }
     void checkPitch()
     {
         var audioTime = audios.time;
-        for (int i = 0; i < 5; i++)
+        for (int track = 0; track < 10; track++)
         {
-            if (timeOfTrack[i].Count != 0 && trackIndex[i] < timeOfTrack[i].Count)
+            if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count)
             {
-                if (timeOfTrack[i][trackIndex[i]] < audioTime - 0.2f)
+                
+                if (timeOfTrack[track][trackIndex[track]] < audioTime - 0.2f)
                 {
-                    Debug.Log("Miss"+" "+ timeOfTrack[i][trackIndex[i]]+" "+ audioTime);
                     showLevel.setText("Miss",Color.red);
                     score.resetCombo();
 
-                    Nodes[i][trackIndex[i]].missDestory();
-                    trackIndex[i] += 1;
+                    Nodes[track][trackIndex[track]].missDestory();
+                    trackIndex[track] += 1;
                 }
             }
 

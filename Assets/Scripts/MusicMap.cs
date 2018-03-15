@@ -126,15 +126,27 @@ public class MusicMap : MonoBehaviour
             {
                 if (timer[i]+ delayTime - totalTime < audios.time && audios.isPlaying)
                 {
-                    
-                    if(i!=4)
+                    switch (createInfo[i].Dequeue())//Node Type
                     {
-                        var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[i].transform.position, createPos[i].transform.rotation);
-                        piano.setTimeOfTrack(i, timer[i]+ delayTime, obj.GetComponent<Node>());
-                    }
-                    else
-                    {
-                        var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[10].transform.position, createPos[10].transform.rotation);
+                        case 0:
+                            var obj = Instantiate(nodes[0], createPos[i].transform.position, createPos[i].transform.rotation);
+                            var comp = obj.GetComponent<Node>();
+                            comp.SetTimeTrack(timer[i] + delayTime,i);
+                            piano.setTimeOfTrack(i, timer[i] + delayTime, comp);
+                            break;
+                        case 1:
+                            var obj1 = Instantiate(nodes[1], createPos[10].transform.position, createPos[10].transform.rotation);
+                            var comp1 = obj1.GetComponent<SilderNode>();
+                            comp1.SetTimeTrack(timer[i] + delayTime,9);
+                            piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
+                            break;
+                        case 2:
+                            var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
+                            var comp2 = obj2.GetComponent<SilderNode>();
+                            comp2.SetTimeTrack(timer[i] + delayTime,6);
+                            piano.setTimeOfTrack(6, timer[i] + delayTime, comp2);
+                            break;
+
                     }
                     isCreate[i] = false;
                 }
@@ -148,15 +160,27 @@ public class MusicMap : MonoBehaviour
                     
                     if (timer[i] + delayTime - totalTime <= clock+0.00001 && !fristIn[i])
                     {
-                        if (i != 4)
+                        switch (createInfo[i].Dequeue())//Node Type
                         {
-                            var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[i].transform.position, createPos[i].transform.rotation);
-                            
-                            piano.setTimeOfTrack(i, timer[i]+ delayTime, obj.GetComponent<Node>());
-                        }
-                        else
-                        {
-                            var obj = Instantiate(nodes[createInfo[i].Dequeue()], createPos[10].transform.position, createPos[10].transform.rotation);
+                            case 0:
+                                var obj = Instantiate(nodes[0], createPos[i].transform.position, createPos[i].transform.rotation);
+                                var comp = obj.GetComponent<Node>();
+                                comp.SetTimeTrack(timer[i] + delayTime,i);
+                                piano.setTimeOfTrack(i, timer[i] + delayTime, comp);
+                                break;
+                            case 1:
+                                var obj1 = Instantiate(nodes[1], createPos[10].transform.position, createPos[10].transform.rotation);
+                                var comp1 = obj1.GetComponent<SilderNode>();
+                                comp1.SetTimeTrack(timer[i] + delayTime,9);
+                                piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
+                                break;
+                            case 2:
+                                var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
+                                var comp2 = obj2.GetComponent<SilderNode>();
+                                comp2.SetTimeTrack(timer[i] + delayTime,6);
+                                piano.setTimeOfTrack(6, timer[i] + delayTime, comp2);
+                                break;
+
                         }
                         isCreate[i] = false;
                     }
@@ -170,7 +194,6 @@ public class MusicMap : MonoBehaviour
     {
         if(clock>0&& !audios.isPlaying&& !isPlay)
         {
-            Debug.Log("time: " + clock);
             audios.Play();
             isPlay = true;
         }
