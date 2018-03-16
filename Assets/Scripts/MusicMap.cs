@@ -139,6 +139,11 @@ public class MusicMap : MonoBehaviour
                             var comp1 = obj1.GetComponent<SilderNode>();
                             comp1.SetTimeTrack(timer[i] + delayTime,9);
                             piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
+                            piano.setTimeOfTrack(9, timer[i] + delayTime + 1.0f, comp1);
+                            piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
+                            piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, comp1);
+                            piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f, comp1);
+                            piano.setTimeOfTrack(6, timer[i] + delayTime + 4.01f, comp1);
                             break;
                         case 2:
                             var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
@@ -172,7 +177,12 @@ public class MusicMap : MonoBehaviour
                                 var obj1 = Instantiate(nodes[1], createPos[10].transform.position, createPos[10].transform.rotation);
                                 var comp1 = obj1.GetComponent<SilderNode>();
                                 comp1.SetTimeTrack(timer[i] + delayTime,9);
-                                piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
+                                piano.setTimeOfTrack(9, timer[i] + delayTime,comp1);
+                                piano.setTimeOfTrack(9, timer[i] + delayTime + 1.0f , comp1);
+                                piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
+                                piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, comp1);
+                                piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f,comp1);
+                                piano.setTimeOfTrack(6, timer[i] + delayTime + 5.0f, comp1);
                                 break;
                             case 2:
                                 var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);

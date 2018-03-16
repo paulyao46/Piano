@@ -26,9 +26,9 @@ public class PitchNode : Node
             return Level.UNABLE;
         }
     }
-    public override void needDestory()
+    public override void needDestory(int track)
     {
-        base.needDestory();
+        base.needDestory(track);
     }
     public override void missDestory()
     {

@@ -109,3 +109,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   particle: {fileID: 1315193202193998, guid: 2275a534591bf2342a4644a180b09c19, type: 2}
+  showParticlePos:
+  - {fileID: 1722533223346306, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1963822994899404, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1525076256218080, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1781033661133084, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1203892747426080, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1358377539786512, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1983168391163030, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1672856920475856, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1783288144040076, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  - {fileID: 1434794816133880, guid: 924cff51ebfa4dc47abd9bf3a6f8b2fe, type: 2}
+  state: 0

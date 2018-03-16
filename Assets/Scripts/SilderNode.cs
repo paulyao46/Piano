@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class SilderNode : Node
 {
-    
     public GameObject[] nodeIndex;
     public List<float> times;
     public List<int> Tracks;
+    private Level preLevel;
     private int index;
+    public GameObject Mask;
     void Start()
     {
+        Mask = GameObject.Find("Mask");
+        Mask.SetActive(false);
+        preLevel = Level.MISS;
         level = Level.MISS;
         state = State.IDLE;
         index = 0;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
-            times.Add(time + 0.25f * i);
+            times.Add(time + 1.0f * i);
 
         }
+        times.Add(time + 4.1f);
         Tracks.Add(track);
         Tracks.Add(track);
         Tracks.Add(track - 1);
@@ -29,109 +34,134 @@ public class SilderNode : Node
     public override void Update()
     {
         transform.Translate(0, -Time.deltaTime * speed, 0);
-        
+
     }
-    public override Level determination(KeyState keyState,int track, float audioTime)
+    public override Level determination(KeyState keyState, int track, float audioTime)
     {
-      switch(state)
+        switch (state)
         {
             case State.IDLE:
                 if (time >= audioTime - 0.05f && time <= audioTime + 0.05f)
                 {
-                    index++;
+                    Mask.SetActive(true);
+                   index++;
                     state = State.IN;
-                    level = Level.PREFECT;
+                    preLevel = Level.PREFECT;
+                    level = Level.CONTINUE;
                     return Level.CONTINUE;
                 }
                 else if (time >= audioTime - 0.1f && time <= audioTime + 0.1f)
                 {
+                    Mask.SetActive(true);
                     index++;
                     state = State.IN;
-                    level = Level.GOOD;
+                    preLevel = Level.GOOD;
+                    level = Level.CONTINUE;
                     return Level.CONTINUE;
                 }
                 else if (time >= audioTime - 0.2f && time <= audioTime + 0.2f)
                 {
+                    Mask.SetActive(true);
                     index++;
                     state = State.IN;
-                    level = Level.BAD;
+                    preLevel = Level.BAD;
+                    level = Level.CONTINUE;
                     return Level.CONTINUE;
                 }
                 else
                 {
                     return Level.UNABLE;
                 }
-                
+
             case State.IN:
-                if(index< times.Count&& times[index] >=audioTime-0.1f && times[index]<=audioTime+0.1f)
+                if (index < times.Count && audioTime >= times[index] && level!=Level.MISS)
                 {
-                    if(Tracks[index]!= Tracks[index-1])
+                    if (Tracks[index] == Tracks[index - 1])
                     {
-                        if(keyState==KeyState.PRESS&& track== Tracks[index])
+                        if (keyState == KeyState.PRESS && track == Tracks[index])
                         {
                             index++;
-                            if(index== times.Count-1)
+                            if (index == times.Count - 1)
                             {
                                 state = State.OUT;
                             }
                             return Level.CONTINUE;
+                        }
+                        else
+                        {
+                            state = State.OUT;
+                            level = Level.MISS;
+                            return Level.MISS;
                         }
                     }
                     else
                     {
-                        if(track == Tracks[index])
+                        if (track == Tracks[index])
                         {
                             index++;
-                            if (index == times.Count-1)
+                            if (index == times.Count - 1)
                             {
                                 state = State.OUT;
                             }
                             return Level.CONTINUE;
                         }
+                        else
+                        {
+                            state = State.OUT;
+                            level = Level.MISS;
+                            return Level.MISS;
+                        }
                     }
-                }
-                else if(index < times.Count && times[index] >= audioTime + 0.15f)
-                {
-                    return Level.MISS;
                 }
                 break;
             case State.SLIDE:
                 break;
             case State.OUT:
-                if (times[index] >= audioTime - 0.05f && times[index] <= audioTime + 0.05f)
+                if(level == Level.MISS)
                 {
-                    
-                    state = State.IN;
-                    if(level == Level.PREFECT)
+                    return Level.MISS;
+                }
+                if (times[index-1] >= audioTime - 0.05f && times[index-1] <= audioTime + 0.05f)
+                {
+
+                    if (preLevel != Level.PREFECT)
                     {
-                        level = Level.PREFECT;
+                        level = preLevel;
+                        return preLevel;
                     }
-                    return Level.CONTINUE;
+                    return Level.PREFECT;
                 }
-                else if (times[index] >= audioTime - 0.1f && times[index] <= audioTime + 0.1f)
+                else if (times[index-1] >= audioTime - 0.1f && times[index-1] <= audioTime + 0.1f)
                 {
-                    
-                    state = State.IN;
-                    level = Level.GOOD;
-                    return Level.CONTINUE;
+
+                    if (preLevel < Level.GOOD)
+                    {
+                        level = preLevel;
+                        return preLevel;
+                    }
+                    return Level.GOOD;
                 }
-                else if (times[index] >= audioTime - 0.2f && times[index] <= audioTime + 0.2f)
+                else if (times[index-1] >= audioTime - 0.2f && times[index-1] <= audioTime + 0.2f)
                 {
-                    
-                    state = State.IN;
-                    level = Level.BAD;
-                    return Level.CONTINUE;
+
+                    if (preLevel < Level.BAD)
+                    {
+                        level = preLevel;
+                        return preLevel;
+                    }
+                    return Level.BAD;
                 }
                 else
                 {
-                    return Level.UNABLE;
+                    level = Level.MISS;
+                    return Level.MISS;
                 }
-           
+
         }
 
         return Level.CONTINUE;
     }
-    public override void needDestory()
+    public override void needDestory(int track)
     {
         Destroy(this.gameObject);
     }
@@ -142,6 +172,10 @@ public class SilderNode : Node
     public void isPress()
     {
         Instantiate(particle, new Vector3(nodeIndex[0].transform.position.x, nodeIndex[0].transform.position.y + 0.3f, nodeIndex[0].transform.position.z), nodeIndex[0].transform.rotation);
+    }
+    public override void closePitch()
+    {
+        GetComponent<LineRenderer>().enabled = false;
     }
 
 }

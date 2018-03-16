@@ -30,7 +30,8 @@ public class Piano : MonoBehaviour
     private KEY[] key;
     private TextMesh[] text;
     private List<int> trackIndex;
-    private KeyState[] keyState; 
+    private List<int> checkIndex;
+    private KeyState[] keyState;
     // Use this for initialization
     void Start()
     {
@@ -41,11 +42,12 @@ public class Piano : MonoBehaviour
         timeOfTrack = new List<float>[10];
         Nodes = new List<Node>[10];
         keyState = new KeyState[10];
-        for(int i =0;i<10;i++)
+        for (int i = 0; i < 10; i++)
         {
             keyState[i] = KeyState.NOPRESS;
         }
         trackIndex = new List<int>();
+        checkIndex = new List<int>();
         for (int i = 0; i < keyObjs.Length; i++)
         {
             mesh[i] = keyObjs[i].GetComponent<MeshRenderer>();
@@ -57,13 +59,19 @@ public class Piano : MonoBehaviour
             timeOfTrack[i] = new List<float>();
             Nodes[i] = new List<Node>();
             trackIndex.Add(0);
+            checkIndex.Add(0);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Control();
         checkPitch();
+    }
+    void Control()
+    {
         switch (type)
         {
             case Playtype.DEVICE:
@@ -72,23 +80,59 @@ public class Piano : MonoBehaviour
                 {
                     if (key[i].isPress == 1)
                     {
-                        mesh[i].material = materials[1];
-                        determination(i);
-                        mesh[i + 10].material = materials[1];
-                        text[i].text = key[i].proximity.ToString();
+                        switch (keyState[i])
+                        {
+                            case KeyState.NOPRESS:
+                                keyState[i] = KeyState.INPRESS;
+                                mesh[i].material = materials[1];
+                                //mesh[i+10].material = materials[1];
+                                text[i].text = key[i].proximity.ToString();
+                                determination(i);
+                                break;
+                            case KeyState.INPRESS:
+                                keyState[i] = KeyState.PRESS;
+                                determination(i);
+                                break;
+                            case KeyState.PRESS:
+                                determination(i);
+                                break;
+                            case KeyState.OUTPRESS:
+                                keyState[i] = KeyState.INPRESS;
+                                mesh[i].material = materials[1];
+                                //mesh[i+10].material = materials[1];
+                                determination(i);
+                                break;
+                        }
                     }
                     else
                     {
-                        mesh[i].material = materials[0];
-                        mesh[i + 10].material = materials[2];
-                        text[i].text = key[i].proximity.ToString();
+                        switch (keyState[i])
+                        {
+                            case KeyState.INPRESS:
+                                keyState[i] = KeyState.OUTPRESS;
+                                mesh[i].material = materials[0];
+                                //mesh[i+10].material = materials[2];
+                                text[i].text = key[i].proximity.ToString();
+                                break;
+                            case KeyState.PRESS:
+                                keyState[i] = KeyState.OUTPRESS;
+                                mesh[i].material = materials[0];
+                                //mesh[i+10].material = materials[2];
+                                text[i].text = key[i].proximity.ToString();
+                                break;
+                            case KeyState.OUTPRESS:
+                                keyState[i] = KeyState.NOPRESS;
+                                text[i].text = key[i].proximity.ToString();
+                                break;
+                        }
+                        
                     }
                 }
                 break;
             case Playtype.KEYBOARD:
                 if (Input.GetKey(KeyCode.Q))
                 {
-                    switch(keyState[0])
+                    switch (keyState[0])
                     {
                         case KeyState.NOPRESS:
                             keyState[0] = KeyState.INPRESS;
@@ -98,6 +142,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[0] = KeyState.PRESS;
+                            determination(0);
+                            break;
+                        case KeyState.PRESS:
+                            determination(0);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[0] = KeyState.INPRESS;
@@ -106,7 +154,7 @@ public class Piano : MonoBehaviour
                             determination(0);
                             break;
                     }
-                    
+
                 }
                 else
                 {
@@ -139,6 +187,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[1] = KeyState.PRESS;
+                            determination(1);
+                            break;
+                        case KeyState.PRESS:
+                            determination(1);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[1] = KeyState.INPRESS;
@@ -180,6 +232,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[2] = KeyState.PRESS;
+                            determination(2);
+                            break;
+                        case KeyState.PRESS:
+                            determination(2);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[2] = KeyState.INPRESS;
@@ -221,6 +277,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[3] = KeyState.PRESS;
+                            determination(3);
+                            break;
+                        case KeyState.PRESS:
+                            determination(3);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[3] = KeyState.INPRESS;
@@ -262,6 +322,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[4] = KeyState.PRESS;
+                            determination(4);
+                            break;
+                        case KeyState.PRESS:
+                            determination(4);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[4] = KeyState.INPRESS;
@@ -303,6 +367,10 @@ public class Piano : MonoBehaviour
                             break;
                         case KeyState.INPRESS:
                             keyState[5] = KeyState.PRESS;
+                            determination(5);
+                            break;
+                        case KeyState.PRESS:
+                            determination(5);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[5] = KeyState.INPRESS;
@@ -338,17 +406,21 @@ public class Piano : MonoBehaviour
                     {
                         case KeyState.NOPRESS:
                             keyState[6] = KeyState.INPRESS;
-                            mesh[6].material = materials[1];
-                            mesh[16].material = materials[1];
+                            //mesh[6].material = materials[1];
+                            //mesh[16].material = materials[1];
                             determination(6);
                             break;
                         case KeyState.INPRESS:
                             keyState[6] = KeyState.PRESS;
+                            determination(6);
+                            break;
+                        case KeyState.PRESS:
+                            determination(6);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[6] = KeyState.INPRESS;
-                            mesh[6].material = materials[1];
-                            mesh[16].material = materials[1];
+                            //mesh[6].material = materials[1];
+                            //mesh[16].material = materials[1];
                             determination(6);
                             break;
                     }
@@ -379,17 +451,21 @@ public class Piano : MonoBehaviour
                     {
                         case KeyState.NOPRESS:
                             keyState[7] = KeyState.INPRESS;
-                            mesh[7].material = materials[1];
-                            mesh[17].material = materials[1];
+                            //mesh[7].material = materials[1];
+                            //mesh[17].material = materials[1];
                             determination(7);
                             break;
                         case KeyState.INPRESS:
                             keyState[7] = KeyState.PRESS;
+                            determination(7);
+                            break;
+                        case KeyState.PRESS:
+                            determination(7);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[7] = KeyState.INPRESS;
-                            mesh[7].material = materials[1];
-                            mesh[17].material = materials[1];
+                            //mesh[7].material = materials[1];
+                            //mesh[17].material = materials[1];
                             determination(7);
                             break;
                     }
@@ -420,17 +496,21 @@ public class Piano : MonoBehaviour
                     {
                         case KeyState.NOPRESS:
                             keyState[8] = KeyState.INPRESS;
-                            mesh[8].material = materials[1];
-                            mesh[18].material = materials[1];
+                            //mesh[8].material = materials[1];
+                            //mesh[18].material = materials[1];
                             determination(8);
                             break;
                         case KeyState.INPRESS:
                             keyState[8] = KeyState.PRESS;
+                            determination(8);
+                            break;
+                        case KeyState.PRESS:
+                            determination(8);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[8] = KeyState.INPRESS;
-                            mesh[8].material = materials[1];
-                            mesh[18].material = materials[1];
+                            //mesh[8].material = materials[1];
+                            //mesh[18].material = materials[1];
                             determination(8);
                             break;
                     }
@@ -461,17 +541,21 @@ public class Piano : MonoBehaviour
                     {
                         case KeyState.NOPRESS:
                             keyState[9] = KeyState.INPRESS;
-                            mesh[9].material = materials[1];
-                            mesh[19].material = materials[1];
+                            //mesh[9].material = materials[1];
+                            //mesh[19].material = materials[1];
                             determination(9);
                             break;
                         case KeyState.INPRESS:
                             keyState[9] = KeyState.PRESS;
+                            determination(9);
+                            break;
+                        case KeyState.PRESS:
+                            determination(9);
                             break;
                         case KeyState.OUTPRESS:
                             keyState[9] = KeyState.INPRESS;
-                            mesh[9].material = materials[1];
-                            mesh[19].material = materials[1];
+                            //mesh[9].material = materials[1];
+                            //mesh[19].material = materials[1];
                             determination(9);
                             break;
                     }
@@ -499,14 +583,14 @@ public class Piano : MonoBehaviour
                 break;
         }
     }
-    public void setTimeOfTrack(int track, float time,Node node)
+    public void setTimeOfTrack(int track, float time, Node node)
     {
         timeOfTrack[track].Add(time);
         Nodes[track].Add(node);
     }
     private void determination(int track)
     {
-        if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count )
+        if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count)
         {
             var audioTime = audios.time;
             var level = Nodes[track][trackIndex[track]].determination(keyState[track], track, audioTime);
@@ -514,29 +598,37 @@ public class Piano : MonoBehaviour
             switch (level)
             {
                 case Level.PREFECT:
-                    showLevel.setText("Prefect", Color.cyan);
-                    inAttack = true;
-                    break;
                 case Level.GOOD:
-                    showLevel.setText("Good", Color.green);
+                case Level.BAD:
                     inAttack = true;
                     break;
-                case Level.BAD:
-                    showLevel.setText("Bad", Color.yellow);
-                    inAttack = true;
+                case Level.MISS:
+                    Nodes[track][trackIndex[track]].closePitch();
+                    Debug.Log("closePitch");
                     break;
                 case Level.CONTINUE:
                     break;
                 case Level.UNABLE:
                     break;
             }
-            if(inAttack == true)
+            if (inAttack == true)
             {
-                score.setCombo();
-                Nodes[track][trackIndex[track]].needDestory();
-                trackIndex[track] += 1;
+                if(track ==6)
+                {
+                    trackIndex[track] += 2;
+                    trackIndex[track + 1] += 1;
+                    trackIndex[track + 2] += 1;
+                    trackIndex[track + 3] += 2;
+                    Debug.Log("success det");
+                }
+                else
+                {
+                    Nodes[track][trackIndex[track]].closePitch();
+                    trackIndex[track] += 1;
+                }
+                
             }
-            
+
 
         }
 
@@ -544,19 +636,150 @@ public class Piano : MonoBehaviour
     void checkPitch()
     {
         var audioTime = audios.time;
+
         for (int track = 0; track < 10; track++)
         {
-            if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count)
+            if (timeOfTrack[track].Count != 0 && checkIndex[track] < timeOfTrack[track].Count)
             {
-                
-                if (timeOfTrack[track][trackIndex[track]] < audioTime - 0.2f)
+                var level = Nodes[track][checkIndex[track]].GetLevel();
+                if (timeOfTrack[track][checkIndex[track]] >= audioTime - 0.2f && timeOfTrack[track][checkIndex[track]] <= audioTime + 0.2)
                 {
-                    showLevel.setText("Miss",Color.red);
+                   
+                    var inAttack = false;
+                    switch (level)
+                    {
+                        case Level.PREFECT:
+                            showLevel.setText("Prefect", Color.cyan);
+                            inAttack = true;
+                            break;
+                        case Level.GOOD:
+                            showLevel.setText("Good", Color.green);
+                            inAttack = true;
+                            break;
+                        case Level.BAD:
+                            showLevel.setText("Bad", Color.yellow);
+                            inAttack = true;
+                            break;
+                        case Level.CONTINUE:
+                            break;
+                        case Level.MISS:
+                            break;
+                        case Level.UNABLE:
+                            break;
+                    }
+                    if (inAttack == true)
+                    {
+                        score.setCombo();
+                        if (track == 6)
+                        {
+                            Nodes[track][checkIndex[track]].needDestory(track);
+                            checkIndex[track] += 2;
+                            checkIndex[track + 1] += 1;
+                            checkIndex[track + 2] += 1;
+                            checkIndex[track + 3] += 2;
+                            Debug.Log("success chk");
+
+                        }
+                        else
+                        {
+                            try
+                            {
+                                Nodes[track][checkIndex[track]].needDestory(track);
+                            }
+                            catch
+                            {
+                                Debug.Log("sometgin");
+                            }
+                            checkIndex[track] += 1;
+                        }
+                        
+                    }
+                }
+                if(level ==Level.CONTINUE)
+                {
+                    var time = Nodes[track][checkIndex[track]].GetTime();
+                    if (time < audioTime - 6.2f)
+                    {
+                        level = Level.MISS;
+                    }
+                }
+                if (level ==Level.MISS && timeOfTrack[track][checkIndex[track]] < audioTime - 0.2f)
+                {
+                    showLevel.setText("Miss", Color.red);
                     score.resetCombo();
 
-                    Nodes[track][trackIndex[track]].missDestory();
-                    trackIndex[track] += 1;
+                    try
+                    {
+                        if(track==6)
+                        {
+                            Nodes[track][checkIndex[track]].missDestory();
+                            checkIndex[track] += 2;
+                            checkIndex[track + 1] += 1;
+                            checkIndex[track + 2] += 1;
+                            checkIndex[track + 3] += 2;
+                            trackIndex[track] += 2;
+                            trackIndex[track +1] += 1;
+                            trackIndex[track + 2] += 1;
+                            trackIndex[track+3] += 2;
+                            Debug.Log("6");
+                        }
+                        else if(track == 7)
+                        {
+                            Nodes[track][checkIndex[track]].missDestory();
+                            checkIndex[track] += 1;
+                            checkIndex[track + 1] += 1;
+                            checkIndex[track + 2] += 2;
+                            checkIndex[track -1] += 2;
+                            trackIndex[track] += 1;
+                            trackIndex[track + 1] += 1;
+                            trackIndex[track + 2] += 2;
+                            trackIndex[track -1] += 2;
+                            Debug.Log("7");
+                        }
+                        else if(track == 8)
+                        {
+                            Nodes[track][checkIndex[track]].missDestory();
+                            checkIndex[track] += 1;
+                            checkIndex[track + 1] += 2;
+                            checkIndex[track -1] += 1;
+                            checkIndex[track - 2] += 2;
+                            trackIndex[track] += 1;
+                            trackIndex[track + 1] += 2;
+                            trackIndex[track -1] += 1;
+                            trackIndex[track -2] += 2;
+                            Debug.Log("8");
+                        }
+                        else if(track == 9)
+                        {
+                            Nodes[track][checkIndex[track]].missDestory();
+                            checkIndex[track] += 2;
+                            checkIndex[track -1] += 1;
+                            checkIndex[track - 2] += 1;
+                            checkIndex[track - 3] += 2;
+                            trackIndex[track] += 2;
+                            trackIndex[track - 1] += 1;
+                            trackIndex[track - 2] += 1;
+                            trackIndex[track - 3] += 2;
+                            Debug.Log("9");
+                        }
+                        else
+                        {
+                            Nodes[track][checkIndex[track]].missDestory();
+                            checkIndex[track] += 1;
+                            trackIndex[track] += 1;
+                            Debug.Log("10");
+                        }
+                        
+                    }
+                    catch
+                    {
+                        Debug.Log("sometgin");
+                    }
+                    
                 }
+
+
+
             }
 
         }
