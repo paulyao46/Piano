@@ -54,7 +54,6 @@ public class MusicMap : MonoBehaviour
     private bool isPlay;
     private float totalTime;
     public float clock;
-    private bool clockCanRun;
     // Use this for initialization
     void Start()
     {
@@ -72,7 +71,6 @@ public class MusicMap : MonoBehaviour
         }
         isPlay = false;
         startLoad = false;
-        clockCanRun = false;
         clock = 0;
         dist = Vector3.Distance(start.position, end.position);
         audios = GetComponent<AudioSource>();
@@ -143,7 +141,7 @@ public class MusicMap : MonoBehaviour
                             piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
                             piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, comp1);
                             piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f, comp1);
-                            piano.setTimeOfTrack(6, timer[i] + delayTime + 4.01f, comp1);
+                            piano.setTimeOfTrack(6, timer[i] + delayTime + 5.0f, comp1);
                             break;
                         case 2:
                             var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);

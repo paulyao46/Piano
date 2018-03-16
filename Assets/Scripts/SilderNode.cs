@@ -9,21 +9,26 @@ public class SilderNode : Node
     public List<int> Tracks;
     private Level preLevel;
     private int index;
+    private int nowTrack;
+    private bool startCheck;
     public GameObject Mask;
+    private Piano piano;
+    public GameObject particles;
     void Start()
     {
         Mask = GameObject.Find("Mask");
         Mask.SetActive(false);
+        piano = GameObject.Find("Piano").GetComponent<Piano>();
         preLevel = Level.MISS;
         level = Level.MISS;
         state = State.IDLE;
         index = 0;
-        for (int i = 0; i < 5; i++)
+        startCheck = false;
+        for (int i = 0; i < 6; i++)
         {
             times.Add(time + 1.0f * i);
 
         }
-        times.Add(time + 4.1f);
         Tracks.Add(track);
         Tracks.Add(track);
         Tracks.Add(track - 1);
@@ -34,7 +39,10 @@ public class SilderNode : Node
     public override void Update()
     {
         transform.Translate(0, -Time.deltaTime * speed, 0);
-
+        if (startCheck)
+        {
+            checkKey(nowTrack);
+        }
     }
     public override Level determination(KeyState keyState, int track, float audioTime)
     {
@@ -43,8 +51,11 @@ public class SilderNode : Node
             case State.IDLE:
                 if (time >= audioTime - 0.05f && time <= audioTime + 0.05f)
                 {
+                    particles = Instantiate(particles, showParticlePos[9].transform.position, showParticlePos[9].transform.rotation);
+                    startCheck = true;
+                    nowTrack = track;
                     Mask.SetActive(true);
-                   index++;
+                    index++;
                     state = State.IN;
                     preLevel = Level.PREFECT;
                     level = Level.CONTINUE;
@@ -52,6 +63,9 @@ public class SilderNode : Node
                 }
                 else if (time >= audioTime - 0.1f && time <= audioTime + 0.1f)
                 {
+                    particles = Instantiate(particles, showParticlePos[9].transform.position, showParticlePos[9].transform.rotation);
+                    startCheck = true;
+                    nowTrack = track;
                     Mask.SetActive(true);
                     index++;
                     state = State.IN;
@@ -61,6 +75,9 @@ public class SilderNode : Node
                 }
                 else if (time >= audioTime - 0.2f && time <= audioTime + 0.2f)
                 {
+                    particles = Instantiate(particles, showParticlePos[9].transform.position, showParticlePos[9].transform.rotation);
+                    startCheck = true;
+                    nowTrack = track;
                     Mask.SetActive(true);
                     index++;
                     state = State.IN;
@@ -74,99 +91,81 @@ public class SilderNode : Node
                 }
 
             case State.IN:
-                if (index < times.Count && audioTime >= times[index] && level!=Level.MISS)
+                if (index < times.Count && audioTime >= times[index] - 0.1f && audioTime <= times[index] + 0.1f && level != Level.MISS)
                 {
-                    if (Tracks[index] == Tracks[index - 1])
+                    index++;
+                    nowTrack = Tracks[index];
+                    if (index == times.Count - 1)
                     {
-                        if (keyState == KeyState.PRESS && track == Tracks[index])
-                        {
-                            index++;
-                            if (index == times.Count - 1)
-                            {
-                                state = State.OUT;
-                            }
-                            return Level.CONTINUE;
-                        }
-                        else
-                        {
-                            state = State.OUT;
-                            level = Level.MISS;
-                            return Level.MISS;
-                        }
+                        state = State.OUT;
                     }
-                    else
-                    {
-                        if (track == Tracks[index])
-                        {
-                            index++;
-                            if (index == times.Count - 1)
-                            {
-                                state = State.OUT;
-                            }
-                            return Level.CONTINUE;
-                        }
-                        else
-                        {
-                            state = State.OUT;
-                            level = Level.MISS;
-                            return Level.MISS;
-                        }
-                    }
+                    return Level.CONTINUE;
+
                 }
                 break;
             case State.SLIDE:
                 break;
             case State.OUT:
-                if(level == Level.MISS)
+                if (index < times.Count && audioTime >= times[index] - 0.2f && audioTime <= times[index] + 0.3f && level != Level.MISS)
                 {
-                    return Level.MISS;
-                }
-                if (times[index-1] >= audioTime - 0.05f && times[index-1] <= audioTime + 0.05f)
-                {
-
-                    if (preLevel != Level.PREFECT)
+                    if (keyState == KeyState.PRESS)
                     {
-                        level = preLevel;
-                        return preLevel;
+                        return Level.CONTINUE;
                     }
-                    return Level.PREFECT;
-                }
-                else if (times[index-1] >= audioTime - 0.1f && times[index-1] <= audioTime + 0.1f)
-                {
 
-                    if (preLevel < Level.GOOD)
+                    if (track == Tracks[index])
                     {
-                        level = preLevel;
-                        return preLevel;
-                    }
-                    return Level.GOOD;
-                }
-                else if (times[index-1] >= audioTime - 0.2f && times[index-1] <= audioTime + 0.2f)
-                {
+                        if (times[index] >= audioTime - 0.05f && times[index] <= audioTime + 0.05f)
+                        {
 
-                    if (preLevel < Level.BAD)
-                    {
-                        level = preLevel;
-                        return preLevel;
-                    }
-                    return Level.BAD;
-                }
-                else
-                {
-                    level = Level.MISS;
-                    return Level.MISS;
-                }
+                            if (preLevel != Level.PREFECT)
+                            {
+                                level = preLevel;
+                                return preLevel;
+                            }
+                            return Level.PREFECT;
+                        }
+                        else if (times[index] >= audioTime - 0.1f && times[index] <= audioTime + 0.1f)
+                        {
 
+                            if (preLevel < Level.GOOD)
+                            {
+                                level = preLevel;
+                                return preLevel;
+                            }
+                            return Level.GOOD;
+                        }
+                        else if (times[index] >= audioTime - 0.2f && times[index] <= audioTime + 0.2f)
+                        {
+
+                            if (preLevel < Level.BAD)
+                            {
+                                level = preLevel;
+                                return preLevel;
+                            }
+                            return Level.BAD;
+                        }
+                        else
+                        {
+                            level = Level.MISS;
+                            return Level.MISS;
+                        }
+
+                    }
+                }
+                break;
         }
-
         return Level.CONTINUE;
     }
     public override void needDestory(int track)
     {
+        Destroy(particles);
         Destroy(this.gameObject);
+
     }
     public override void missDestory()
     {
+        Destroy(particles);
         base.missDestory();
     }
     public void isPress()
@@ -175,7 +174,23 @@ public class SilderNode : Node
     }
     public override void closePitch()
     {
+
         GetComponent<LineRenderer>().enabled = false;
+    }
+    KeyState checkKey(int track)
+    {
+        var sta = piano.GetKeyState(track);
+        if (sta == KeyState.PRESS || sta == KeyState.INPRESS)
+        {
+
+        }
+        else
+        {
+            level = Level.MISS;
+            startCheck = false;
+        }
+
+        return sta;
     }
 
 }
