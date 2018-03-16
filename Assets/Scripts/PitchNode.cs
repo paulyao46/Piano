@@ -6,25 +6,38 @@ public class PitchNode : Node
 {
     public override Level determination(KeyState keyState, int track, float audioTime)
     {
-        if (time >= audioTime - 0.05f && time <= audioTime + 0.05f)
+        if(type == keyState && !hasDeterminate)
         {
-            level = Level.PREFECT;
-            return Level.PREFECT;
-        }
-        else if (time >= audioTime - 0.1f && time <= audioTime + 0.1f)
-        {
-            level = Level.GOOD;
-            return Level.GOOD;
-        }
-        else if (time >= audioTime - 0.2f && time <= audioTime + 0.2f)
-        {
-            level = Level.BAD;
-            return Level.BAD;
+            
+            if (audioTime >= time - 0.05f && audioTime <= time + 0.05f)
+            {
+                hasDeterminate = true;
+                level = Level.PREFECT;
+                return Level.PREFECT;
+            }
+            else if (audioTime >= time - 0.1f && audioTime <= time + 0.1f)
+            {
+                hasDeterminate = true;
+                level = Level.GOOD;
+                return Level.GOOD;
+            }
+            else if (audioTime >= time - 0.2f && audioTime <= time + 0.2f)
+            {
+                hasDeterminate = true;
+                level = Level.BAD;
+                return Level.BAD;
+            }
+            else
+            {
+                hasDeterminate = false;
+                return Level.UNABLE;
+            }
         }
         else
         {
             return Level.UNABLE;
         }
+        
     }
     public override void needDestory(int track)
     {

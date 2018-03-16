@@ -68,6 +68,7 @@ public class Piano : MonoBehaviour
     {
 
         Control();
+        checkKeyState();
         checkPitch();
     }
     void Control()
@@ -87,20 +88,16 @@ public class Piano : MonoBehaviour
                                 mesh[i].material = materials[1];
                                 //mesh[i+10].material = materials[1];
                                 text[i].text = key[i].proximity.ToString();
-                                determination(i);
                                 break;
                             case KeyState.INPRESS:
                                 keyState[i] = KeyState.PRESS;
-                                determination(i);
                                 break;
                             case KeyState.PRESS:
-                                determination(i);
                                 break;
                             case KeyState.OUTPRESS:
                                 keyState[i] = KeyState.INPRESS;
                                 mesh[i].material = materials[1];
                                 //mesh[i+10].material = materials[1];
-                                determination(i);
                                 break;
                         }
                     }
@@ -125,7 +122,7 @@ public class Piano : MonoBehaviour
                                 text[i].text = key[i].proximity.ToString();
                                 break;
                         }
-                        
+
                     }
                 }
                 break;
@@ -228,12 +225,20 @@ public class Piano : MonoBehaviour
         timeOfTrack[track].Add(time);
         Nodes[track].Add(node);
     }
-    private void determination(int track)
+    private void checkKeyState()
+    {
+        for (int track = 0; track < 10; track++)
+        {
+            KeyState state = keyState[track];
+            determination(track, state);
+        }
+    }
+    private void determination(int track, KeyState state)
     {
         if (timeOfTrack[track].Count != 0 && trackIndex[track] < timeOfTrack[track].Count)
         {
             var audioTime = audios.time;
-            var level = Nodes[track][trackIndex[track]].determination(keyState[track], track, audioTime);
+            var level = Nodes[track][trackIndex[track]].determination(state, track, audioTime);
             var inAttack = false;
             switch (level)
             {
@@ -244,7 +249,6 @@ public class Piano : MonoBehaviour
                     break;
                 case Level.MISS:
                     Nodes[track][trackIndex[track]].closePitch();
-                    Debug.Log("closePitch");
                     break;
                 case Level.CONTINUE:
                     break;
@@ -253,21 +257,9 @@ public class Piano : MonoBehaviour
             }
             if (inAttack == true)
             {
-                if(track ==6)
-                {
+                Nodes[track][trackIndex[track]].closePitch();
+                trackIndex[track] += 1;
 
-                    trackIndex[track] += 2;
-                    trackIndex[track + 1] += 1;
-                    trackIndex[track + 2] += 1;
-                    trackIndex[track + 3] += 2;
-                    Debug.Log("success det");
-                }
-                else
-                {
-                    Nodes[track][trackIndex[track]].closePitch();
-                    trackIndex[track] += 1;
-                }
-                
             }
 
 
@@ -285,7 +277,6 @@ public class Piano : MonoBehaviour
                 var level = Nodes[track][checkIndex[track]].GetLevel();
                 if (timeOfTrack[track][checkIndex[track]] >= audioTime - 0.2f && timeOfTrack[track][checkIndex[track]] <= audioTime + 0.2)
                 {
-                   
                     var inAttack = false;
                     switch (level)
                     {
@@ -311,104 +302,19 @@ public class Piano : MonoBehaviour
                     if (inAttack == true)
                     {
                         score.setCombo();
-                        if (track == 6)
-                        {
-                            Nodes[track][checkIndex[track]].needDestory(track);
-                            checkIndex[track] += 2;
-                            checkIndex[track + 1] += 1;
-                            checkIndex[track + 2] += 1;
-                            checkIndex[track + 3] += 2;
-                            Debug.Log("success chk");
-
-                        }
-                        else
-                        {
-                            try
-                            {
-                                Nodes[track][checkIndex[track]].needDestory(track);
-                            }
-                            catch
-                            {
-                                Debug.Log("sometgin");
-                            }
-                            checkIndex[track] += 1;
-                        }
-                        
+                        Nodes[track][checkIndex[track]].needDestory(track);
+                        checkIndex[track] += 1;
                     }
                 }
-                if (level ==Level.MISS && timeOfTrack[track][checkIndex[track]] < audioTime - 0.2f)
+                if (level == Level.MISS && timeOfTrack[track][checkIndex[track]] < audioTime - 0.2f)
                 {
                     showLevel.setText("Miss", Color.red);
                     score.resetCombo();
 
-                    try
-                    {
-                        if(track==6)
-                        {
-                            Nodes[track][checkIndex[track]].missDestory();
-                            checkIndex[track] += 2;
-                            checkIndex[track + 1] += 1;
-                            checkIndex[track + 2] += 1;
-                            checkIndex[track + 3] += 2;
-                            trackIndex[track] += 2;
-                            trackIndex[track +1] += 1;
-                            trackIndex[track + 2] += 1;
-                            trackIndex[track+3] += 2;
-                            Debug.Log("6");
-                        }
-                        else if(track == 7)
-                        {
-                            Nodes[track][checkIndex[track]].missDestory();
-                            checkIndex[track] += 1;
-                            checkIndex[track + 1] += 1;
-                            checkIndex[track + 2] += 2;
-                            checkIndex[track -1] += 2;
-                            trackIndex[track] += 1;
-                            trackIndex[track + 1] += 1;
-                            trackIndex[track + 2] += 2;
-                            trackIndex[track -1] += 2;
-                            Debug.Log("7");
-                        }
-                        else if(track == 8)
-                        {
-                            Nodes[track][checkIndex[track]].missDestory();
-                            checkIndex[track] += 1;
-                            checkIndex[track + 1] += 2;
-                            checkIndex[track -1] += 1;
-                            checkIndex[track - 2] += 2;
-                            trackIndex[track] += 1;
-                            trackIndex[track + 1] += 2;
-                            trackIndex[track -1] += 1;
-                            trackIndex[track -2] += 2;
-                            Debug.Log("8");
-                        }
-                        else if(track == 9)
-                        {
-                            Nodes[track][checkIndex[track]].missDestory();
-                            checkIndex[track] += 2;
-                            checkIndex[track -1] += 1;
-                            checkIndex[track - 2] += 1;
-                            checkIndex[track - 3] += 2;
-                            trackIndex[track] += 2;
-                            trackIndex[track - 1] += 1;
-                            trackIndex[track - 2] += 1;
-                            trackIndex[track - 3] += 2;
-                            Debug.Log("9");
-                        }
-                        else
-                        {
-                            Nodes[track][checkIndex[track]].missDestory();
-                            checkIndex[track] += 1;
-                            trackIndex[track] += 1;
-                            Debug.Log("10");
-                        }
-                        
-                    }
-                    catch
-                    {
-                        Debug.Log("sometgin");
-                    }
-                    
+                    Nodes[track][checkIndex[track]].missDestory();
+                    checkIndex[track] += 1;
+                    trackIndex[track] += 1;
+
                 }
 
 
@@ -424,21 +330,17 @@ public class Piano : MonoBehaviour
             case KeyState.NOPRESS:
                 keyState[index] = KeyState.INPRESS;
                 mesh[index].material = materials[1];
-                mesh[index+10].material = materials[1];
-                determination(index);
+                mesh[index + 10].material = materials[1];
                 break;
             case KeyState.INPRESS:
                 keyState[0] = KeyState.PRESS;
-                determination(index);
                 break;
             case KeyState.PRESS:
-                determination(index);
                 break;
             case KeyState.OUTPRESS:
                 keyState[index] = KeyState.INPRESS;
                 mesh[index].material = materials[1];
-                mesh[index+10].material = materials[1];
-                determination(index);
+                mesh[index + 10].material = materials[1];
                 break;
         }
     }
@@ -449,12 +351,12 @@ public class Piano : MonoBehaviour
             case KeyState.INPRESS:
                 keyState[index] = KeyState.OUTPRESS;
                 mesh[index].material = materials[0];
-                mesh[index+10].material = materials[2];
+                mesh[index + 10].material = materials[2];
                 break;
             case KeyState.PRESS:
                 keyState[1] = KeyState.OUTPRESS;
                 mesh[index].material = materials[0];
-                mesh[index+10].material = materials[2];
+                mesh[index + 10].material = materials[2];
                 break;
             case KeyState.OUTPRESS:
                 keyState[index] = KeyState.NOPRESS;

@@ -1,13 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum State
-{
-    IN,
-    SLIDE,
-    OUT,
-    IDLE
-}
 public enum Level
 {
     PREFECT,
@@ -20,16 +13,17 @@ public enum Level
 
 public class Node : MonoBehaviour {
     public float speed;
+    protected bool hasDeterminate;
     public GameObject particle;
     public GameObject[] showParticlePos;
     protected float time;
     protected int track;
-    public State state;
+    public KeyState type;
     protected Level level;
     // Use this for initialization
     void Start () {
         level = Level.MISS;
-
+        hasDeterminate = false;
     }
 	
 	// Update is called once per frame
@@ -48,6 +42,7 @@ public class Node : MonoBehaviour {
     }
     public virtual Level determination(KeyState keyState,int track,float audioTime)
     {
+
         return Level.UNABLE;
     }
     public virtual void SetTimeTrack(float timer,int tracks)
@@ -66,6 +61,10 @@ public class Node : MonoBehaviour {
     public Level GetLevel()
     {
         return level;
+    }
+    public void SetType(KeyState types)
+    {
+        type = types;
     }
     public virtual void closePitch()
     {

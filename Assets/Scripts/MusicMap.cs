@@ -37,6 +37,7 @@ public class Track
 public class MusicMap : MonoBehaviour
 {
     public GameObject[] nodes;
+    public GameObject slideCover;
     public GameObject[] createPos;
     public Queue<float>[] createTime;
     public Queue<int>[] createInfo;
@@ -124,34 +125,7 @@ public class MusicMap : MonoBehaviour
             {
                 if (timer[i]+ delayTime - totalTime < audios.time && audios.isPlaying)
                 {
-                    switch (createInfo[i].Dequeue())//Node Type
-                    {
-                        case 0:
-                            var obj = Instantiate(nodes[0], createPos[i].transform.position, createPos[i].transform.rotation);
-                            var comp = obj.GetComponent<Node>();
-                            comp.SetTimeTrack(timer[i] + delayTime,i);
-                            piano.setTimeOfTrack(i, timer[i] + delayTime, comp);
-                            break;
-                        case 1:
-                            var obj1 = Instantiate(nodes[1], createPos[10].transform.position, createPos[10].transform.rotation);
-                            var comp1 = obj1.GetComponent<SilderNode>();
-                            comp1.SetTimeTrack(timer[i] + delayTime,9);
-                            piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
-                            piano.setTimeOfTrack(9, timer[i] + delayTime + 1.0f, comp1);
-                            piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
-                            piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, comp1);
-                            piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f, comp1);
-                            piano.setTimeOfTrack(6, timer[i] + delayTime + 5.0f, comp1);
-                            break;
-                        case 2:
-                            var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
-                            var comp2 = obj2.GetComponent<SilderNode>();
-                            comp2.SetTimeTrack(timer[i] + delayTime,6);
-                            piano.setTimeOfTrack(6, timer[i] + delayTime, comp2);
-                            break;
-
-                    }
-                    isCreate[i] = false;
+                    CreateNode(i);
                 }
                 else if(timer[i]+ delayTime - totalTime < audios.time)
                 {
@@ -163,34 +137,7 @@ public class MusicMap : MonoBehaviour
                     
                     if (timer[i] + delayTime - totalTime <= clock+0.00001 && !fristIn[i])
                     {
-                        switch (createInfo[i].Dequeue())//Node Type
-                        {
-                            case 0:
-                                var obj = Instantiate(nodes[0], createPos[i].transform.position, createPos[i].transform.rotation);
-                                var comp = obj.GetComponent<Node>();
-                                comp.SetTimeTrack(timer[i] + delayTime,i);
-                                piano.setTimeOfTrack(i, timer[i] + delayTime, comp);
-                                break;
-                            case 1:
-                                var obj1 = Instantiate(nodes[1], createPos[10].transform.position, createPos[10].transform.rotation);
-                                var comp1 = obj1.GetComponent<SilderNode>();
-                                comp1.SetTimeTrack(timer[i] + delayTime,9);
-                                piano.setTimeOfTrack(9, timer[i] + delayTime,comp1);
-                                piano.setTimeOfTrack(9, timer[i] + delayTime + 1.0f , comp1);
-                                piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
-                                piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, comp1);
-                                piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f,comp1);
-                                piano.setTimeOfTrack(6, timer[i] + delayTime + 5.0f, comp1);
-                                break;
-                            case 2:
-                                var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
-                                var comp2 = obj2.GetComponent<SilderNode>();
-                                comp2.SetTimeTrack(timer[i] + delayTime,6);
-                                piano.setTimeOfTrack(6, timer[i] + delayTime, comp2);
-                                break;
-
-                        }
-                        isCreate[i] = false;
+                        CreateNode(i);
                     }
                     fristIn[i] = false;
                 }
@@ -215,4 +162,71 @@ public class MusicMap : MonoBehaviour
         yield return new WaitForSeconds(1);
         startLoad = true;
     }
+    void CreateNode(int i)
+    {
+        switch (createInfo[i].Dequeue())//Node Type
+        {
+            case 0:
+                var obj = Instantiate(nodes[0], createPos[i].transform.position, createPos[i].transform.rotation);
+                var comp = obj.GetComponent<Node>();
+                comp.SetType(KeyState.INPRESS);
+                comp.SetTimeTrack(timer[i] + delayTime, i);
+                piano.setTimeOfTrack(i, timer[i] + delayTime, comp);
+                break;
+            case 1:
+                Instantiate(slideCover, createPos[10].transform.position, createPos[10].transform.rotation);
+                var obj1 = Instantiate(nodes[3], createPos[9].transform.position, createPos[9].transform.rotation);
+                var comp1 = obj1.GetComponent<SilderNode>();
+                comp1.SetType(KeyState.INPRESS);
+                comp1.SetTimeTrack(timer[i] + delayTime, 9);
+                piano.setTimeOfTrack(9, timer[i] + delayTime, comp1);
+
+                var tempObj = genSildeNode(3, 9, 0, 0, 4.72f);
+                var tempComp = tempObj.GetComponent<SilderNode>();
+                tempComp.SetType(KeyState.PRESS);
+                comp1.NextNode = tempComp;
+                piano.setTimeOfTrack(9, timer[i] + delayTime + 1.0f, tempComp);
+
+                tempObj = genSildeNode(3, 8, 0, 0, 4.72f*2);
+                comp1 = tempObj.GetComponent<SilderNode>();
+                comp1.SetType(KeyState.PRESS);
+                tempComp.NextNode = comp1;
+                piano.setTimeOfTrack(8, timer[i] + delayTime + 2.0f, comp1);
+
+                tempObj = genSildeNode(3, 7, 0, 0, 4.72f * 3);
+                tempComp = tempObj.GetComponent<SilderNode>();
+                tempComp.SetType(KeyState.PRESS);
+                comp1.NextNode = tempComp;
+                piano.setTimeOfTrack(7, timer[i] + delayTime + 3.0f, tempComp);
+
+                tempObj = genSildeNode(3, 6, 0, 0, 4.72f * 4);
+                comp1 = tempObj.GetComponent<SilderNode>();
+                comp1.SetType(KeyState.PRESS);
+                tempComp.NextNode = comp1;
+                piano.setTimeOfTrack(6, timer[i] + delayTime + 4.0f, comp1);
+
+                tempObj = genSildeNode(3, 6, 0, 0, 4.72f * 5);
+                tempComp = tempObj.GetComponent<SilderNode>();
+                tempComp.SetType(KeyState.OUTPRESS);
+                comp1.NextNode = tempComp;
+                piano.setTimeOfTrack(6, timer[i] + delayTime + 5.0f, tempComp);
+                break;
+            case 2:
+                var obj2 = Instantiate(nodes[2], createPos[10].transform.position, createPos[10].transform.rotation);
+                var comp2 = obj2.GetComponent<SilderNode>();
+                comp2.SetTimeTrack(timer[i] + delayTime, 6);
+                piano.setTimeOfTrack(6, timer[i] + delayTime, comp2);
+                break;
+
+        }
+        isCreate[i] = false;
+    }
+    GameObject genSildeNode(int type,int pos,float x,float y,float z)
+    {
+       return Instantiate(nodes[type], new Vector3(createPos[pos].transform.position.x+x,
+                                                                    createPos[pos].transform.position.y+y,
+                                                                    createPos[pos].transform.position.z + z),
+                                                                    createPos[pos].transform.rotation);
+    }
 }
+

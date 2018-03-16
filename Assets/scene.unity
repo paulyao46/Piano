@@ -1472,7 +1472,7 @@ MonoBehaviour:
   dataBits: 0
   stopBits: 0
   tracks: 3
-  nimble: 30
+  nimble: 20
   rs232: {fileID: 1617880696}
   getBytes: 
 --- !u!4 &1283526067
